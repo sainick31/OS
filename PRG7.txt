@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main() {
+    char filename[] = "shared_data.txt";
+    char buff[100];
+
+    // Open file for writing
+    FILE *file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("Error opening file!\n");
+        return 1;
+    }
+
+    // Prompt user to enter data
+    printf("Enter some data to write to the file:\n");
+    fgets(buff, sizeof(buff), stdin);
+
+    // Write data to the file
+    fputs(buff, file);
+
+    // Close the file
+    fclose(file);
+
+    // Open file for reading
+    file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Error opening file!\n");
+        return 1;
+    }
+
+    // Read data from the file and print it
+    printf("Data written to the file:\n");
+    while (fgets(buff, sizeof(buff), file) != NULL) {
+        printf("%s", buff);
+    }
+
+    // Close the file
+    fclose(file);
+
+    return 0;
+}
